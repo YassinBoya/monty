@@ -45,6 +45,11 @@ int main(int argc, char **argv);
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
 void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
+
+
+void free_stack(stack_t **stack);
+
+
 int usage_error(void);
 int open_file_error(char *file);
 int unknown_instruction_opcode(char *opcode, unsigned int line_number);
