@@ -37,13 +37,18 @@ typedef struct instruction_s
 char *opcode;
 void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-
+/**
+ *struct instraction_exit - variables -args, file, line content
+ *@file: pointer to monty file
+ *@line: line
+ *@lifi: change between the queue or a stack
+ */
 
 typedef struct instraction_exit
 {
-	FILE *file;
-	char *line;
-	int lifi;
+FILE *file;
+char *line;
+int lifi;
 }  in_exit;
 extern in_exit exi;
 
