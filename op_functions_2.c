@@ -26,24 +26,24 @@ printf("%d\n", (*head)->n);
 */
 void _swap(stack_t **head, unsigned int line_number)
 {
-	stack_t *h;
-	int len = 0, aux;
+stack_t *current;
+int len = 0, aux;
 
-	h = *head;
-	while (h)
-	{
-		h = h->next;
-		len++;
-	}
-	if (len < 2)
-	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
-		fclose(exi.file);
-		free(exi.line);
-		exit(EXIT_FAILURE);
-	}
-	h = *head;
-	aux = h->n;
-	h->n = h->next->n;
-	h->next->n = aux;
+current = *head;
+while (current)
+{
+current = current->next;
+len++;
+}
+if (len < 2)
+{
+fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+fclose(exi.file);
+free(exi.line);
+exit(EXIT_FAILURE);
+}
+current = *head;
+aux = current->n;
+current->n = current->next->n;
+current->next->n = aux;
 }
