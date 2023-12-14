@@ -36,7 +36,7 @@ while (getline(&line, &len, file) != -1)
 exi.line = line;
 line_number++;
 token = strtok(line, " \t\n");
-if (token == NULL || token[0] == '#')
+if (token && token[0] == '#')
 continue;
 
 execute_opcode(token, &stack, line_number);
