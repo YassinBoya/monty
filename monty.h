@@ -61,6 +61,7 @@ void _pint(stack_t **head, unsigned int line_number);
 void _swap(stack_t **head, unsigned int line_number);
 void _add(stack_t **head, unsigned int line_number);
 void _nop(stack_t **stack_h, unsigned int line_number);
+void _sub(stack_t **head, unsigned int line_number);
 int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
 
 

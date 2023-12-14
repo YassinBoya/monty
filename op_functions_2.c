@@ -90,3 +90,31 @@ void _nop(stack_t **stack_h, unsigned int line_number)
 (void) line_number;
 (void) stack_h;
 }
+
+/**
+*_sub- sustration
+*@head: stack head
+*@line_number: line_number
+*Return: no return
+*/
+void _sub(stack_t **head, unsigned int line_number)
+{
+stack_t *h;
+int sub_val, i_nodes;
+
+h = *head;
+for (i_nodes = 0; h != NULL; i_nodes++)
+h = h->next;
+if (i_nodes < 2)
+{
+fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+fclose(exi.file);
+free(exi.line);
+exit(EXIT_FAILURE);
+}
+h = *head;
+sub_val = h->next->n - h->n;
+h->next->n = sub_val;
+*head = h->next;
+free(h);
+}
