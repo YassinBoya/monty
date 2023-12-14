@@ -19,12 +19,13 @@ free(new_node);
 malloc_error();
 }
 
+
 token = strtok(NULL, " \t\n");
 if (token == NULL)
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
-return;
+exit(EXIT_FAILURE);
 }
 
 for (i = 0; token[i] != '\0'; i++)
@@ -33,7 +34,7 @@ if (!isdigit(token[i]) && token[i] != '-')
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
-return;
+exit(EXIT_FAILURE);
 }
 }
 
@@ -73,13 +74,10 @@ current = current->next;
 * @opcode: The opcode to execute.
 * @stack: A pointer to the top of the stack.
 * @line_number: The current line number in the Monty bytecode file.
-*Return: if execution is successful, it returns exit_success
-*otherwise, it returns exit_failure
 */
 
-int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
+void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 {
-int exit_status = EXIT_SUCCESS;
 instruction_t instructions[] = {
 {"push", _push},
 {"pall", _pall},
@@ -93,10 +91,11 @@ while (instructions[i].opcode != NULL)
 if (strcmp(opcode, instructions[i].opcode) == 0)
 {
 instructions[i].f(stack, line_number);
-return (exit_status);
+return;
 }
 i++;
 }
-exit_status = unknown_instruction_opcode(opcode, line_number);
-return (exit_status);
+
+unknown_instruction_opcode(opcode, line_number);
+return;
 }
