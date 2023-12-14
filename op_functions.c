@@ -14,10 +14,8 @@ int i;
 
 new_node = malloc(sizeof(stack_t));
 if (new_node == NULL)
-{
 free(new_node);
 malloc_error();
-}
 
 token = strtok(NULL, " \t\n");
 if (token == NULL)
@@ -73,10 +71,13 @@ current = current->next;
 * @opcode: The opcode to execute.
 * @stack: A pointer to the top of the stack.
 * @line_number: The current line number in the Monty bytecode file.
+*Return: if execution is successful, it returns exit_success
+*otherwise, it returns exit_failure
 */
 
-void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
+int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 {
+int exit_status = EXIT_SUCCESS;
 instruction_t instructions[] = {
 {"push", _push},
 {"pall", _pall},
@@ -90,11 +91,12 @@ while (instructions[i].opcode != NULL)
 if (strcmp(opcode, instructions[i].opcode) == 0)
 {
 instructions[i].f(stack, line_number);
-return;
+}
+else
+{
+exit_status = unknown_instruction_opcode(opcode, line_number);
 }
 i++;
 }
-
-unknown_instruction_opcode(opcode, line_number);
-
+return (exit_status);
 }

@@ -13,6 +13,7 @@
 
 int main(int argc, char **argv)
 {
+int exit_status = EXIT_SUCCESS;
 FILE *file = NULL;
 char *line = NULL;
 char *token = NULL;
@@ -34,10 +35,10 @@ token = strtok(line, " \t\n");
 if (token == NULL || token[0] == '#')
 continue;
 
-execute_opcode(token, &stack, line_number);
+exit_status = execute_opcode(token, &stack, line_number);
 }
-fclose(file);
 free_stack(&stack);
+fclose(file);
 free(line);
-return (EXIT_SUCCESS);
+return (exit_status);
 }
