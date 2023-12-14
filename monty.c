@@ -10,7 +10,7 @@
  *returns EXIT_FAILURE. In case of errors error messages are printed
  *to standard error.
  */
-int state = 0;
+int push_error_flag = 0;
 
 int main(int argc, char **argv)
 {
@@ -40,5 +40,5 @@ execute_opcode(token, &stack, line_number);
 free_stack(&stack);
 fclose(file);
 free(line);
-return (EXIT_SUCCESS);
+return (push_error_flag ? EXIT_FAILURE : EXIT_SUCCESS);
 }

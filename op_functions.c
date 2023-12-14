@@ -17,6 +17,8 @@ if (new_node == NULL)
 {
 free(new_node);
 malloc_error();
+push_error_flag = 1;
+return;
 }
 
 
@@ -25,7 +27,8 @@ if (token == NULL)
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
-exit(EXIT_FAILURE);
+push_error_flag = 1;
+return;
 }
 
 for (i = 0; token[i] != '\0'; i++)
@@ -34,7 +37,8 @@ if (!isdigit(token[i]) && token[i] != '-')
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
-exit(EXIT_FAILURE);
+push_error_flag = 1;
+return;
 }
 }
 
@@ -91,9 +95,10 @@ while (instructions[i].opcode != NULL)
 if (strcmp(opcode, instructions[i].opcode) == 0)
 {
 instructions[i].f(stack, line_number);
-return;
+
 }
 i++;
+return;
 }
 
 unknown_instruction_opcode(opcode, line_number);
