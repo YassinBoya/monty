@@ -83,6 +83,7 @@ int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 instruction_t instructions[] = {
 {"push", _push},
 {"pall", _pall},
+{"pop", _pop},
 {NULL, NULL}
 };
 
@@ -103,4 +104,27 @@ free(exi.line);
 exit(EXIT_FAILURE);
 
 return (1);
+}
+
+
+/**
+*_pop - prints the top
+*@head: stack head
+*@line_number: line_number
+*Return: no return
+*/
+void _pop(stack_t **head, unsigned int line_number)
+{
+stack_t *h;
+
+if (*head == NULL)
+{
+fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+fclose(exi.file);
+free(exi.line);
+exit(EXIT_FAILURE);
+}
+h = *head;
+*head = h->next;
+free(h);
 }
