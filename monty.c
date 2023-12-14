@@ -10,10 +10,11 @@
  *returns EXIT_FAILURE. In case of errors error messages are printed
  *to standard error.
  */
-int push_error_flag = 0;
+in_exit exi = {NULL, NULL, 0};
 
 int main(int argc, char **argv)
 {
+
 FILE *file = NULL;
 char *line = NULL;
 char *token = NULL;
@@ -25,11 +26,13 @@ if (argc != 2)
 return (usage_error());
 
 file = fopen(argv[1], "r");
+exi.file = file;
 if (file == NULL)
 return (open_file_error(argv[1]));
 
 while (getline(&line, &len, file) != -1)
 {
+exi.line = line;
 line_number++;
 token = strtok(line, " \t\n");
 if (token == NULL || token[0] == '#')
@@ -40,5 +43,5 @@ execute_opcode(token, &stack, line_number);
 free_stack(&stack);
 fclose(file);
 free(line);
-return (push_error_flag ? EXIT_FAILURE : EXIT_SUCCESS);
+return (0);
 }

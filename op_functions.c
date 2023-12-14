@@ -17,39 +17,36 @@ if (new_node == NULL)
 {
 free(new_node);
 malloc_error();
-push_error_flag = 1;
-return;
+fclose(exi.file);
+free(exi.line);
+exit(EXIT_FAILURE);
 }
-
-
 token = strtok(NULL, " \t\n");
 if (token == NULL)
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
-push_error_flag = 1;
-return;
+fclose(exi.file);
+free(exi.line);
+exit(EXIT_FAILURE);
 }
-
 for (i = 0; token[i] != '\0'; i++)
 {
 if (!isdigit(token[i]) && token[i] != '-')
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
-push_error_flag = 1;
-return;
+fclose(exi.file);
+free(exi.line);
+exit(EXIT_FAILURE);
 }
 }
-
-
 new_node->n = atoi(token);
 new_node->prev = NULL;
 new_node->next = *stack;
 
 if (*stack != NULL)
 (*stack)->prev = new_node;
-
 *stack = new_node;
 }
 
@@ -74,13 +71,14 @@ current = current->next;
 }
 
 /**
-* execute_opcode - Executes the corresponding function for an opcode.
-* @opcode: The opcode to execute.
-* @stack: A pointer to the top of the stack.
-* @line_number: The current line number in the Monty bytecode file.
+*execute_opcode - Executes the corresponding function for an opcode.
+*@opcode: The opcode to execute.
+*@stack: A pointer to the top of the stack.
+*@line_number: The current line number in the Monty bytecode file.
+*Return: 0 if the execution is successful; 1 otherwise.
 */
 
-void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
+int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 {
 instruction_t instructions[] = {
 {"push", _push},
@@ -90,17 +88,19 @@ instruction_t instructions[] = {
 
 int i = 0;
 
-while (instructions[i].opcode != NULL)
+while (instructions[i].opcode && opcode)
 {
 if (strcmp(opcode, instructions[i].opcode) == 0)
 {
 instructions[i].f(stack, line_number);
-
+return (0);
 }
 i++;
-return;
 }
-
 unknown_instruction_opcode(opcode, line_number);
-return;
+fclose(exi.file);
+free(exi.line);
+exit(EXIT_FAILURE);
+
+return (1);
 }

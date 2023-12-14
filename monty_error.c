@@ -30,10 +30,9 @@ return (EXIT_FAILURE);
 *Return: EXIT_FAILURE to indicate the failure.
 */
 
-int unknown_instruction_opcode(char *opcode, unsigned int line_number)
+void unknown_instruction_opcode(char *opcode, unsigned int line_number)
 {
 fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-return (EXIT_FAILURE);
 }
 
 /**

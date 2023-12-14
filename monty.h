@@ -8,7 +8,6 @@
 #include <fcntl.h>
 #include <string.h>
 #include <ctype.h>
-extern int push_error_flag;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -40,11 +39,19 @@ void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 
+typedef struct instraction_exit
+{
+	FILE *file;
+	char *line;
+	int lifi;
+}  in_exit;
+extern in_exit exi;
+
 int main(int argc, char **argv);
 
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
-void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
+int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
 
 
 void free_stack(stack_t **stack);
@@ -52,7 +59,7 @@ void free_stack(stack_t **stack);
 
 int usage_error(void);
 int open_file_error(char *file);
-int unknown_instruction_opcode(char *opcode, unsigned int line_number);
+void unknown_instruction_opcode(char *opcode, unsigned int line_number);
 int malloc_error(void);
 
 #endif
