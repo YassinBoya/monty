@@ -14,15 +14,18 @@ int i;
 
 new_node = malloc(sizeof(stack_t));
 if (new_node == NULL)
+{
 free(new_node);
 malloc_error();
+return;
+}
 
 token = strtok(NULL, " \t\n");
 if (token == NULL)
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
-exit(EXIT_FAILURE);
+return;
 }
 
 for (i = 0; token[i] != '\0'; i++)
@@ -31,7 +34,6 @@ if (!isdigit(token[i]) && token[i] != '-')
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
-exit(EXIT_FAILURE);
 }
 }
 
@@ -91,12 +93,10 @@ while (instructions[i].opcode != NULL)
 if (strcmp(opcode, instructions[i].opcode) == 0)
 {
 instructions[i].f(stack, line_number);
-}
-else
-{
-exit_status = unknown_instruction_opcode(opcode, line_number);
+return (exit_status);
 }
 i++;
 }
+exit_status = unknown_instruction_opcode(opcode, line_number);
 return (exit_status);
 }

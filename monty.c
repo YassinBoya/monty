@@ -40,5 +40,6 @@ exit_status = execute_opcode(token, &stack, line_number);
 free_stack(&stack);
 fclose(file);
 free(line);
+printf("done");
 return (exit_status);
 }
