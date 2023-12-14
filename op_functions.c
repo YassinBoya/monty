@@ -17,7 +17,6 @@ if (new_node == NULL)
 {
 free(new_node);
 malloc_error();
-return;
 }
 
 token = strtok(NULL, " \t\n");
@@ -34,6 +33,7 @@ if (!isdigit(token[i]) && token[i] != '-')
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
+return;
 }
 }
 
