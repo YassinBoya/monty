@@ -26,9 +26,10 @@ if (argc != 2)
 return (usage_error());
 
 file = fopen(argv[1], "r");
-exi.file = file;
+
 if (file == NULL)
 return (open_file_error(argv[1]));
+exi.file = file;
 
 while (getline(&line, &len, file) != -1)
 {
