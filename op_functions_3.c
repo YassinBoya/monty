@@ -3,7 +3,7 @@
 /**
  * _div - divides the top two elements of the stack.
  * @head: stack head
- * @line_number: line_number
+ * @line_number: counter of lines
  * Return: no return
 */
 
@@ -42,7 +42,7 @@ free(h);
 /**
  * _mul - multiplies the top two elements of the stack.
  * @head: stack head
- * @line_number: line_number
+ * @line_number: counter of lines
  * Return: no return
 */
 void _mul(stack_t **head, unsigned int line_number)
@@ -71,11 +71,11 @@ free(h);
 }
 
 /**
- * _mod - computes the rest of the division of the second
- * top element of the stack by the top element of the stack
- * @head: stack head
- * @line_number: line_number
- * Return: no return
+* _mod - calculate the rest of the division of the two top
+* element of the stack
+* @head: stack head
+* @line_number: counter of lines
+* Return: no return
 */
 void _mod(stack_t **head, unsigned int line_number)
 {
@@ -110,10 +110,10 @@ free(h);
 }
 
 /**
-*_pchar - prints the char at the top of the stack,
+*_pchar - prints the char at the top of the stack
 *followed by a new line
 *@head: stack head
-*@line_number: line_number
+* @line_number: counter of lines
 *Return: no return
 */
 void _pchar(stack_t **head, unsigned int line_number)
@@ -143,7 +143,7 @@ printf("%c\n", h->n);
  * _pstr - prints the string starting at the top of the stack,
  * followed by a new
  * @head: stack head
- * @line_number: line_number
+ * @line_number: counter of lines
  * Return: no return
 */
 void _pstr(stack_t **head, unsigned int line_number)
