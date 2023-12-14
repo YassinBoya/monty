@@ -35,10 +35,9 @@ if (token == NULL || token[0] == '#')
 continue;
 
 execute_opcode(token, &stack, line_number);
-token = strtok(NULL, " ");
 }
-free_stack(&stack);
 fclose(file);
+free_stack(&stack);
 free(line);
 return (EXIT_SUCCESS);
 }

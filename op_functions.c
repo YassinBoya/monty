@@ -10,11 +10,14 @@ void _push(stack_t **stack, unsigned int line_number)
 {
 stack_t *new_node;
 char *token;
+int i;
 
-line_number++;
 new_node = malloc(sizeof(stack_t));
 if (new_node == NULL)
+{
+free(new_node);
 malloc_error();
+}
 
 token = strtok(NULL, " \t\n");
 if (token == NULL)
@@ -23,6 +26,17 @@ fprintf(stderr, "L%d: usage: push integer\n", line_number);
 free(new_node);
 exit(EXIT_FAILURE);
 }
+
+for (i = 0; token[i] != '\0'; i++)
+{
+if (!isdigit(token[i]) && token[i] != '-')
+{
+fprintf(stderr, "L%d: usage: push integer\n", line_number);
+free(new_node);
+exit(EXIT_FAILURE);
+}
+}
+
 
 new_node->n = atoi(token);
 new_node->prev = NULL;
